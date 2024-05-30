@@ -17,9 +17,9 @@ public class OrdersUnitTests
     [Fact]
     public async Task CreateOrderCommand_ShouldCreateNewOrderAndPublishOrderCreatedEvent()
     {
-        var dispatcher = new CommandProcessor();
+        var commandProcessor = new CommandProcessor();
 
-        await dispatcher.ExecuteCommand(new CreateOrderCommand
+        await commandProcessor.ExecuteCommand(new CreateOrderCommand
         {
             customerId = "customer 1",
             orderDate = DateTime.Now,
@@ -55,8 +55,8 @@ public class OrdersUnitTests
 
         if (orderCreatedEvent != null)
         {
-            var dispatcher = new CommandProcessor();
-            await dispatcher.ExecuteCommand(new AddOrderLineItemCommand
+            var commandProcessor = new CommandProcessor();
+            await commandProcessor.ExecuteCommand(new AddOrderLineItemCommand
             {
                 orderAggregateId = orderCreatedEvent.aggregateId,
                 productId = Guid.NewGuid().ToString(),
@@ -83,8 +83,8 @@ public class OrdersUnitTests
 
     //    if (orderCreatedEvent != null)
     //    {
-    //        var dispatcher = new CommandProcessor();
-    //        await dispatcher.ExecuteCommand(new RemoveOrderLineItemCommand
+    //        var commandProcessor = new CommandProcessor();
+    //        await commandProcessor.ExecuteCommand(new RemoveOrderLineItemCommand
     //        {
     //            LineItemId = 1,
     //            OrderId = 1
